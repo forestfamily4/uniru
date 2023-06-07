@@ -1,0 +1,1 @@
+type NonNullableString = string extends undefined ? never : string;
