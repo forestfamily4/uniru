@@ -4,8 +4,8 @@ import { Cell } from "./cell"
 
 type Props = {
     value: Array<NonNullableString[]>,
-    onCellClicked: (str: string) => void,
-    onArrowClicked: (direction: "left" | "right", num: number) => void,
+    onCellClicked?: (str: string) => void,
+    onArrowClicked?: (direction: "left" | "right", num: number) => void,
     hide: boolean
 }
 
@@ -36,7 +36,7 @@ export const CellTable: React.FC<Props> = (props) => {
                     <div className="flex gap-1" key={i}>
                         {
                             !props.hide ? <ButtonArrow onClick={() => {
-                                props.onArrowClicked("left", i)
+                                props.onArrowClicked?.("left", i)
                                 setSelectingCell(undefined)
                             }} direction="left"></ButtonArrow> : <></>
                         }
@@ -44,12 +44,12 @@ export const CellTable: React.FC<Props> = (props) => {
                             v.map((v2, i2) => {
                                 if (i2 === hideNum && props.hide) {
                                     return (
-                                        <Cell value={""} key={`${i}-${i2}`} onClick={() => { props.onCellClicked(v2) }} hide={true} />
+                                        <Cell value={""} key={`${i}-${i2}`} onClick={() => { props.onCellClicked?.(v2) }} hide={true} />
                                     )
                                 }
                                 return (
                                     <Cell value={v2} key={`${i}-${i2}`} onClick={() => {
-                                        props.onCellClicked(v2)
+                                        props.onCellClicked?.(v2)
                                         setSelectingCell([i, i2])
                                     }} selecting={
                                         selectingCell?.[0] === i && selectingCell?.[1] === i2
@@ -58,7 +58,7 @@ export const CellTable: React.FC<Props> = (props) => {
                             })}
                         {
                             !props.hide ? <ButtonArrow onClick={() => {
-                                props.onArrowClicked("right", i)
+                                props.onArrowClicked?.("right", i)
                                 setSelectingCell(undefined)
                             }} direction="right"></ButtonArrow> : <></>
                         }
