@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 
 type Props = {
     onClick?: () => void,
-    children: React.ReactNode
+    children?: React.ReactNode,
+    className?:string,
+    buttonName:string
 }
 
 export const PopupButton: React.FC<Props> = (p) => {
@@ -36,11 +38,11 @@ export const PopupButton: React.FC<Props> = (p) => {
     };
     return (
         <>
-            <div className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-5 mt-5"
+            <div className={p.className}
                 onClick={() => {
                     setViewFlag(true)
                     p.onClick?.()
-                }}>結果を共有</div>
+                }}>{p.buttonName}</div>
             <div
                 className={
                     'fixed flex flex-col items-center justify-center overflow-hidden bg-gray-500/50' +
