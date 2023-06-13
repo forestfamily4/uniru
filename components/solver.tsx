@@ -20,8 +20,8 @@ export const Solver: React.FC<Props> = (p) => {
     const [count, setCount] = useState(0)
     const [startTime] = useState(Date.now())
     const [endTime, setEndTime] = useState<number>(NaN)
-    const [code,setCode]=useState(p.code)
     const parm = useSearchParams()
+    const code = parm.get("code")
 
     const unicode = (centerCharacter: string, num: number) => {
         const code = centerCharacter.charCodeAt(0);
@@ -65,7 +65,7 @@ export const Solver: React.FC<Props> = (p) => {
 
     useEffect(() => {
         setUnicodeArray(
-            code.split('').map((v, i) => {
+            p.code.split('').map((v, i) => {
                 return unicode(v, 5)
             })
         )
@@ -75,7 +75,7 @@ export const Solver: React.FC<Props> = (p) => {
         <CellTable value={unicodeArray ?? [["", "", "", "", ""]]}
             hide={true}
         />
-        <input ref={inputRef} className="mt-20 text-lg" maxLength={code.length}></input>
+        <input ref={inputRef} className="mt-20 text-lg" maxLength={p.code.length}></input>
         <button className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-5 mt-5"
             onClick={() => {
                 setIsResult(true)
@@ -83,19 +83,13 @@ export const Solver: React.FC<Props> = (p) => {
                     setIsResult(false)
                 }, 2000)
                 setCount(count + 1)
-                if (inputRef.current?.value === code && isNaN(endTime)) {
+                if (inputRef.current?.value === p.code && isNaN(endTime)) {
                     setEndTime(Date.now())
-                }
-                if(inputRef.current?.value !== code){
-                    let code_=""
-                    inputRef.current?.value.split("").forEach((v,i)=>{
-                        code_+=code[i]===v?" ":v
-                    })
                 }
             }}>解答する</button>
         <div>
             {
-                inputRef.current?.value === code ?
+                inputRef.current?.value === p.code ?
                     <>
                         <h1 className="text-2xl text-red-500 text-center">正解！</h1>
                         <PopupButton onClick={() => {
@@ -108,7 +102,7 @@ export const Solver: React.FC<Props> = (p) => {
                                     <div className="w-5/6 h-2/3 pt-2 px-1 break-words bg-slate-100 rounded-lg">
                                         {
                                             result.split("\n").map((s,i)=>{
-                                                return (<span key={i}>{s}</span>)
+                                                return (<p key={i}>{s}</p>)
                                             })
                                         }
                                     </div>
