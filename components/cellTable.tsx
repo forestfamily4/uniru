@@ -42,7 +42,7 @@ export const CellTable: React.FC<Props> = (props) => {
                         }
                         {
                             v.map((v2, i2) => {
-                                if (i2 === hideNum && props.hide) {
+                                if (i2 === hideNum && props.hide && v2!=="") {
                                     return (
                                         <Cell value={""} key={`${i}-${i2}`} onClick={() => { props.onCellClicked?.(v2) }} hide={true} />
                                     )
