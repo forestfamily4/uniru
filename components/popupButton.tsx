@@ -52,7 +52,7 @@ export const PopupButton: React.FC<Props> = (p) => {
                 }
                 onClick={onClickBackground}
             >
-                <div className="relative h-2/3 w-5/6 max-w-3xl">
+                <div className="relative h-2/3 w-2/3 max-w-3xl">
                     <div
                         id="policy"
                         className="flex h-full w-full flex-col bg-none"

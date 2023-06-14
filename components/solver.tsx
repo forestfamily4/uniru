@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useGlobalText } from "./providers/GlobalText"
 import { TextInput } from "./textInput"
@@ -13,15 +14,15 @@ type Props = {
 type UnicodeArray = Array<Array<string>>
 
 export const Solver: React.FC<Props> = (p) => {
+    const parm = useSearchParams()
+    const code = parm.get("code") ?? ""
     const [unicodeArray, setUnicodeArray] = useState<UnicodeArray>()
     const [isResult, setIsResult] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const [result, setResult] = useState("")
     const [count, setCount] = useState(0)
-    const [startTime] = useState(Date.now())
+    const [startTime,setStartTime] = useState(0)
     const [endTime, setEndTime] = useState<number>(NaN)
-    const parm = useSearchParams()
-    const code = parm.get("code")
 
     const unicode = (centerCharacter: string, num: number) => {
         const code = centerCharacter.charCodeAt(0);
@@ -69,6 +70,14 @@ export const Solver: React.FC<Props> = (p) => {
                 return unicode(v, 5)
             })
         )
+        const data = localStorage.getItem(code)
+        if (data) {
+            setStartTime(parseInt(data))
+        }
+        else {
+            localStorage.setItem(code, Date.now().toString())
+            setStartTime(Date.now())
+        }
     }, [])
 
     return (<>
@@ -124,3 +133,4 @@ export const Solver: React.FC<Props> = (p) => {
         </div>
     </>)
 }
+

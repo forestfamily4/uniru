@@ -13,7 +13,6 @@ export const ToolButton: FC<Props> = ({ className }) => {
                 buttonName="?">
                 <div className="w-full h-full bg-gray-200 items-center rounded-3xl flex-col flex justify-center">
                     <p className="text-center my-4">遊び方</p>
-
                     <p>適当な所を押せば入力できます。</p>
                 </div>
             </PopupButton>
